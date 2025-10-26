@@ -1,0 +1,16 @@
+nohup: ignoring input
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:3000
+ * Running on http://172.31.40.230:3000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [26/Oct/2025 21:52:35] "HEAD /health HTTP/1.1" 200 -
+127.0.0.1 - - [26/Oct/2025 22:09:40] "[33mGET /status HTTP/1.1[0m" 404 -
+127.0.0.1 - - [26/Oct/2025 22:10:06] "[33mGET /status HTTP/1.1[0m" 404 -
+127.0.0.1 - - [26/Oct/2025 22:11:56] "GET /health HTTP/1.1" 200 -
+112.135.70.252 - - [26/Oct/2025 22:13:19] "GET /health HTTP/1.1" 200 -
+112.135.70.252 - - [26/Oct/2025 22:13:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+175.157.25.51 - - [26/Oct/2025 22:16:58] "GET / HTTP/1.1" 200 -
+175.157.25.51 - - [26/Oct/2025 22:16:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
