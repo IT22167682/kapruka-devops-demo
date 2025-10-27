@@ -40,7 +40,6 @@ pipeline {
         sh '''
           docker stop kapruka-app || true
           docker rm   kapruka-app || true
-          # Option B: keep external port 3000
           docker run -d --name kapruka-app --restart unless-stopped \
             -p ${APP_PORT}:${APP_PORT} ${DOCKER_IMAGE}:latest
           sleep 5
@@ -53,18 +52,7 @@ pipeline {
         sh 'curl -f http://localhost:${APP_PORT}/health'
       }
     }
-
-    /* ✅ Add the Ansible stage INSIDE the stages block */
-    stage('Ansible Deploy') {
-      steps {
-        sh '''
-          echo "=== Running Ansible playbook ==="
-          ansible --version
-          ansible-playbook ~/ansible/deploy.yml
-        '''
-      }
-    }
-  } // <-- end of stages
+  }
 
   post {
     always {
