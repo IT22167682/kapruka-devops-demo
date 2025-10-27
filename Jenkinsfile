@@ -49,4 +49,12 @@ pipeline {
       sh 'docker image prune -f || true'
     }
   }
+    stage('Ansible Deploy') {
+      steps {
+        sh '''
+          echo "=== Running Ansible playbook for deployment ==="
+          ansible-playbook ~/ansible/deploy.yml
+        '''
+      }
+    }
 }
