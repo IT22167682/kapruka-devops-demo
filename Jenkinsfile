@@ -21,9 +21,7 @@ pipeline {
     }
 
     stage('Unit Test (syntax)') {
-      steps {
-        sh 'python3 -m py_compile app.py'
-      }
+      steps { sh 'python3 -m py_compile app.py' }
     }
 
     stage('Build Image') {
@@ -48,22 +46,24 @@ pipeline {
     }
 
     stage('Verify (local health)') {
+      steps { sh 'curl -f http://localhost:${APP_PORT}/health' }
+    }
+
+    stage('Ansible Deploy') {
       steps {
-        sh 'curl -f http://localhost:${APP_PORT}/health'
+        sh '''
+          echo "=== Running Ansible playbook (Jenkins user) ==="
+          export ANSIBLE_HOST_KEY_CHECKING=False
+          ansible-playbook -i /var/lib/jenkins/ansible/hosts /var/lib/jenkins/ansible/deploy.yml
+        '''
       }
     }
   }
 
   post {
-    always {
-      sh 'docker ps || true'
-    }
-    success {
-      echo "✅ Build #${BUILD_NUMBER} completed"
-    }
-    failure {
-      echo "❌ Build failed — check Console Output"
-    }
+    always  { sh 'docker ps || true' }
+    success { echo "✅ Build #${BUILD_NUMBER} completed" }
+    failure { echo "❌ Build failed — check Console Output" }
   }
 }
 
